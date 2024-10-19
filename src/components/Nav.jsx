@@ -9,6 +9,7 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
+
 function NavList() {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -39,7 +40,9 @@ function NavList() {
       >
         Students
       </Typography>
+
       <Avatar />
+
       <Typography
         as={Link}
         to={"/login"}
@@ -65,7 +68,7 @@ function NavbarSimple() {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, []);
+  });
 
   return (
     <Navbar className="mx-auto max-w-screen-xl px-6 py-3">

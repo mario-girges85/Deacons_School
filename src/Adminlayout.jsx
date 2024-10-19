@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router";
 import Notfound from "./pages/Notfound";
 import Students from "./pages/admin/Students";
 
-const Adminlayout = () => {
+const Adminlayout = (data) => {
   return (
     <div>
       <Routes>

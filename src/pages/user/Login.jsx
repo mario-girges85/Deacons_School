@@ -6,15 +6,34 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ users }) => {
   const [showpass, setshowpass] = useState(false);
   const [loguser, setloguser] = useState({ email: "", pass: "" });
-  //stop reloading on onsubmin event
-  const stopreloadinf = (e) => {
-    e.preventDefault();
+  const [userid, setuserid] = useState();
+  const [invaliddata, setinvaliddata] = useState("hidden");
+  const navigate = useNavigate();
+  //check in api data / if true store id in local storage / and navigate home
+  const checklogin = () => {
+    users.map((oneuser) => {
+      if (oneuser.email == loguser.email && oneuser.pass == loguser.password) {
+        setinvaliddata("hidden");
+        setuserid(oneuser.id);
+        localStorage.setItem("id", userid);
+        navigate("/");
+      } else {
+        setinvaliddata("");
+      }
+    });
   };
+
+  //stop reloading on onsubmin event
+  const submit = (e) => {
+    e.preventDefault();
+    checklogin();
+  };
+
   return (
     <div className="flex justify-center items-center mt-8 ">
       <Card color="transparent" shadow={false}>
@@ -24,7 +43,7 @@ const Login = () => {
 
         <form
           onSubmit={(e) => {
-            stopreloadinf(e);
+            submit(e);
           }}
           className="mt-6 mb-2 w-80 max-w-screen-lg sm:w-75"
         >
@@ -71,6 +90,9 @@ const Login = () => {
             </div>
           </div>
           {/* <Checkbox label="i agree to the terms and conditions" /> */}
+          <Typography className={` ${invaliddata}  text-red-800 mb-[-15px]`}>
+            *invalid username or password
+          </Typography>
           <Button type="submit" className=" w-full bg-cdarkred-100 mt-6">
             Sign in
           </Button>

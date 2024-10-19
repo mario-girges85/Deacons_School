@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "firstname": "mario",
+      "lastname": "girges",
+      "email": "mario@gmail.com",
+      "phonenumber": "01285948011",
+      "password": "1234",
+      "gender": "male",
+      "birthday": "11/10/2005",
+      "role": "user"
+    },
+    {
+      "firstname": "youssef",
+      "lastname": "girges",
+      "email": "lingo@gmail.com",
+      "phonenumber": "01289275746",
+      "password": "1234",
+      "gender": "male",
+      "birthday": "2/2/2002",
+      "role": "user"
+    }
+  ]
+}
