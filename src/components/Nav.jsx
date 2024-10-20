@@ -10,7 +10,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
 
-function NavList() {
+function NavList({ cn }) {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -40,23 +40,24 @@ function NavList() {
       >
         Students
       </Typography>
-
-      <Avatar />
-
-      <Typography
-        as={Link}
-        to={"/login"}
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium flex items-center hover:text-cdarkred-100 transition-colors"
-      >
-        Login
-      </Typography>
+      {cn ? (
+        <Avatar />
+      ) : (
+        <Typography
+          as={Link}
+          to={"/login"}
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-medium flex items-center hover:text-cdarkred-100 transition-colors"
+        >
+          Login
+        </Typography>
+      )}
     </ul>
   );
 }
 
-function NavbarSimple() {
+function NavbarSimple({ cn }) {
   const [openNav, setOpenNav] = useState(false);
 
   const handleWindowResize = () =>
@@ -82,7 +83,7 @@ function NavbarSimple() {
           <img src={logo} alt="logo" />
         </Typography>
         <div className="hidden lg:block">
-          <NavList />
+          <NavList cn={cn} />
         </div>
         <IconButton
           variant="text"
@@ -98,7 +99,7 @@ function NavbarSimple() {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        <NavList />
+        <NavList cn={cn} />
       </Collapse>
     </Navbar>
   );

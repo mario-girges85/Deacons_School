@@ -8,19 +8,21 @@ import {
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({ users }) => {
+const Login = ({ users, userid, userdata, setuserid, setcn }) => {
   const [showpass, setshowpass] = useState(false);
   const [loguser, setloguser] = useState({ email: "", pass: "" });
-  const [userid, setuserid] = useState();
   const [invaliddata, setinvaliddata] = useState("hidden");
   const navigate = useNavigate();
   //check in api data / if true store id in local storage / and navigate home
+
   const checklogin = () => {
     users.map((oneuser) => {
-      if (oneuser.email == loguser.email && oneuser.pass == loguser.password) {
+      if (oneuser.email == loguser.email && oneuser.password == loguser.pass) {
         setinvaliddata("hidden");
         setuserid(oneuser.id);
-        localStorage.setItem("id", userid);
+        localStorage.id = oneuser.id;
+        localStorage.cn = true;
+        setcn(true);
         navigate("/");
       } else {
         setinvaliddata("");
