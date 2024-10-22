@@ -9,7 +9,7 @@
       "gender": "male",
       "birthday": "11/10/2005",
       "role": "user",
-      "id": 1
+      "id": "1"
     },
     {
       "firstname": "youssef",
@@ -20,7 +20,19 @@
       "gender": "male",
       "birthday": "2/2/2002",
       "role": "user",
-      "id": 2
+      "id": "2"
+    },
+    {
+      "id": "a7cb",
+      "firstname": "beshoy",
+      "lastname": "reda",
+      "email": "beshoy@gmail.com",
+      "phonenumber": "01111111",
+      "password": "1234",
+      "gender": "Male",
+      "birthday": "2024-10-02",
+      "role": "",
+      "cart": []
     }
   ]
 }

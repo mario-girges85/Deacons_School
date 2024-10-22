@@ -3,6 +3,7 @@ import { Input, Radio, Button, Checkbox } from "@material-tailwind/react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+const apiurl = import.meta.env.VITE_API_URL;
 const Signup2 = () => {
   const navigate = useNavigate();
   const [newuser, setnewuser] = useState({
@@ -13,7 +14,7 @@ const Signup2 = () => {
     password: "",
     gender: "",
     birthday: "",
-    role: "user",
+    role: "",
     cart: [],
   });
   const [confirmpassword, setconfirmpassword] = useState("");
@@ -21,7 +22,11 @@ const Signup2 = () => {
   const [agreeterms, setagreeterms] = useState(false);
 
   //post to api function
-  const postuser = () => {};
+  const postuser = () => {
+    axios.post(`${apiurl}users`, newuser).then(() => {
+      console.log("data posted");
+    });
+  };
   //reset error
   let reset = () => {
     seterror("");
