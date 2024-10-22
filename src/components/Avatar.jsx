@@ -15,6 +15,7 @@ import {
   PowerIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router";
 
 // profile menu component
 const profileMenuItems = [
@@ -44,7 +45,6 @@ export function AvatarWithUserDropdown() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
-
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -81,11 +81,16 @@ export function AvatarWithUserDropdown() {
                 className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
                 strokeWidth: 2,
               })}
+
               <Typography
                 as="span"
                 variant="small"
                 className="font-normal"
                 color={isLastItem ? "red" : "inherit"}
+                onClick={() => {
+                  localStorage.clear();
+                  location.reload();
+                }}
               >
                 {label}
               </Typography>

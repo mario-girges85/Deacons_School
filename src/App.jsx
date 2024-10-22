@@ -27,11 +27,9 @@ const App = () => {
       .then((data) => {
         setuserdata(data.data);
       })
-      .then(() => {
-        console.log(userdata);
-      })
+      .then(() => {})
       .catch(() => {
-        console.error("error");
+        console.error("error catching logged user data");
       });
   };
 
