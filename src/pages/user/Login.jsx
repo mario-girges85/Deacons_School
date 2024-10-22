@@ -16,18 +16,21 @@ const Login = ({ users, userid, userdata, setuserid, setcn }) => {
   //check in api data / if true store id in local storage / and navigate home
 
   const checklogin = () => {
-    users.map((oneuser) => {
-      if (oneuser.email == loguser.email && oneuser.password == loguser.pass) {
-        setinvaliddata("hidden");
-        setuserid(oneuser.id);
-        localStorage.id = oneuser.id;
-        localStorage.cn = true;
-        setcn(true);
-        navigate("/");
-      } else {
-        setinvaliddata("");
-      }
-    });
+    const foundUser = users.find(
+      (oneuser) =>
+        oneuser.email === loguser.email && oneuser.password === loguser.pass
+    );
+
+    if (foundUser) {
+      setinvaliddata("hidden");
+      setuserid(foundUser.id);
+      localStorage.id = foundUser.id;
+      localStorage.cn = true;
+      setcn(true);
+      navigate("/");
+    } else {
+      setinvaliddata("");
+    }
   };
 
   //stop reloading on onsubmin event
