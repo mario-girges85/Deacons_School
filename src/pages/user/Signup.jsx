@@ -23,9 +23,14 @@ const Signup2 = () => {
 
   //post to api function
   const postuser = () => {
-    axios.post(`${apiurl}users`, newuser).then(() => {
-      console.log("data posted");
-    });
+    axios
+      .post(`${apiurl}users`, newuser)
+      .then(() => {
+        location.reload();
+      })
+      .then(() => {
+        console.log("data posted");
+      });
   };
   //reset error
   let reset = () => {
