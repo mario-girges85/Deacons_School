@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router";
 import Home from "./pages/user/Home";
 import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
+import Notfound from "./pages/Notfound";
 const Userlayout = ({ users, userid, setuserid, setcn, userdata }) => {
   return (
     <div>
@@ -21,6 +22,7 @@ const Userlayout = ({ users, userid, setuserid, setcn, userdata }) => {
           }
         ></Route>
         <Route path="/signup" element={<Signup users={users} />}></Route>
+        <Route path="*" element={<Notfound />}></Route>
       </Routes>
     </div>
   );
