@@ -7,7 +7,7 @@ const Control = () => {
   const [hallsdata, sethallsdata] = useState([]);
   const get_data = () => {
     axios
-      .get(`http://localhost:3000/halls`)
+      .get(`${import.meta.env.VITE_API_URL}halls`)
       .then(({ data }) => {
         sethallsdata(data);
         console.log("data is done");

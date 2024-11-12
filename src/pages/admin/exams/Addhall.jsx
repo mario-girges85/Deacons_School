@@ -18,13 +18,15 @@ function DialogDefault() {
   //input error if empty
   const [error, seterror] = useState(false);
   const handleOpen = () => setOpen(!open);
+  //api
+  const apiurl = import.meta.env.VITE_API_URL;
 
   //valiadation and submitting
   const addnewhall = () => {
     if (newhall != null && newhall != "") {
       setloading(true);
       axios
-        .post(`http://localhost:3000/halls`, {
+        .post(`${apiurl}halls`, {
           name: newhall,
           students: [],
         })
@@ -34,6 +36,7 @@ function DialogDefault() {
         .then(() => [setloading(false)])
         .then(setnewhall(null))
         .then(() => {
+          //reload to show this new hall in the drop menu
           location.reload();
         })
         .catch(() => {
