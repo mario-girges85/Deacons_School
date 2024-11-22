@@ -5,6 +5,7 @@ import Addhall from "./Addhall";
 import axios from "axios";
 const Control = () => {
   const [hallsdata, sethallsdata] = useState([]);
+
   const get_data = () => {
     axios
       .get(`${import.meta.env.VITE_API_URL}halls`)

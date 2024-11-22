@@ -6,6 +6,7 @@ import Students from "./pages/admin/Students";
 import Exams from "./pages/admin/exams/Exams";
 import AddStudent from "./pages/admin/exams/AddStudent";
 import Control from "./pages/admin/exams/Control";
+import Editexams from "./pages/admin/exams/Editexams";
 
 const Adminlayout = (data) => {
   return (
@@ -16,6 +17,7 @@ const Adminlayout = (data) => {
         <Route path="/students" element={<Students />}></Route>
         <Route path="/exams" element={<Exams />}></Route>
         <Route path="/addstudent" element={<AddStudent />}></Route>
+        <Route path="/editexams" element={<Editexams />}></Route>
         <Route path="/control" element={<Control />}></Route>
       </Routes>
     </div>

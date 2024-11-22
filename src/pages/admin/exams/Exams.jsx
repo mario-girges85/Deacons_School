@@ -24,6 +24,7 @@ const Exams = () => {
 
       <Typography
         as={Link}
+        to="/admin/editexams"
         className="flex flex-col justify-center  items-center text-center  text-4xl font-semibold"
       >
         <Lottie
@@ -32,7 +33,7 @@ const Exams = () => {
           autoplay
           className="w-[450px] lg:w-[350px]"
         />
-        the Exam
+        Edit Exams
       </Typography>
 
       <Typography
@@ -46,7 +47,7 @@ const Exams = () => {
           autoplay
           className="w-[450px] lg:w-[350px]"
         />
-        Control
+        halls Control
       </Typography>
     </div>
   );
