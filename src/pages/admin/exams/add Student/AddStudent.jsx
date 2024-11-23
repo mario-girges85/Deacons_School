@@ -8,7 +8,7 @@ import {
   Card,
 } from "@material-tailwind/react";
 import { useState } from "react";
-import Addhall from "./Addhall";
+import Addhall from "../control/Addhall";
 import axios from "axios";
 const AddStudent = () => {
   //select hall

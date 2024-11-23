@@ -3,6 +3,7 @@ import { Select, Option, Button } from "@material-tailwind/react";
 import { useState } from "react";
 import Addhall from "./Addhall";
 import axios from "axios";
+import Table from "./Table";
 const Control = () => {
   const [hallsdata, sethallsdata] = useState([]);
 
@@ -24,7 +25,7 @@ const Control = () => {
     }
   }, [hallsdata]);
   return (
-    <div className="lg:mx-32 my-9">
+    <div className="lg:mx-32 my-9 flex flex-col gap-6">
       <div className="header flex flex-row gap-4">
         <div className="w-72">
           <Select label="Select Hall">
@@ -41,6 +42,9 @@ const Control = () => {
         </div>
 
         <Addhall />
+      </div>
+      <div>
+        <Table />
       </div>
     </div>
   );

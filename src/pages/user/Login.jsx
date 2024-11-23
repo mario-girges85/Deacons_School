@@ -62,7 +62,7 @@ const Login = ({ users, userid, userdata, setuserid, setcn }) => {
             </Typography>
             <div className="w-72">
               <Input
-                type="email"
+                type="text"
                 value={loguser.email}
                 onChange={(e) => {
                   setloguser({ ...loguser, email: e.target.value });

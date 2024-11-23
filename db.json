@@ -3,70 +3,24 @@
     {
       "firstname": "mario",
       "lastname": "girges",
-      "email": "mario@gmail.com",
+      "email": "admin",
       "phonenumber": "01285948011",
-      "password": "1234",
+      "password": "0000",
+      "gender": "male",
+      "birthday": "11/10/2005",
+      "role": "admin",
+      "id": "0sd1"
+    },
+    {
+      "firstname": "mario",
+      "lastname": "girges",
+      "email": "user",
+      "phonenumber": "01285948011",
+      "password": "0000",
       "gender": "male",
       "birthday": "11/10/2005",
       "role": "user",
-      "id": "1"
-    },
-    {
-      "firstname": "youssef",
-      "lastname": "girges",
-      "email": "lingo@gmail.com",
-      "phonenumber": "01289275746",
-      "password": "1234",
-      "gender": "male",
-      "birthday": "2/2/2002",
-      "role": "user",
-      "id": "2"
-    },
-    {
-      "id": "a7cb",
-      "firstname": "beshoy",
-      "lastname": "reda",
-      "email": "beshoy@gmail.com",
-      "phonenumber": "01111111",
-      "password": "1234",
-      "gender": "Male",
-      "birthday": "2024-10-02",
-      "role": "",
-      "cart": []
-    },
-    {
-      "id": "6b3e",
-      "firstname": "mario",
-      "lastname": "mina",
-      "email": "mina@gmail.com",
-      "phonenumber": "01111111111",
-      "password": "1234",
-      "gender": "Male",
-      "birthday": "2024-10-02",
-      "role": "",
-      "cart": []
-    }
-  ],
-  "halls": [
-    {
-      "id": "6112",
-      "name": "anba karas",
-      "students": []
-    },
-    {
-      "id": "690e",
-      "name": "maximos",
-      "students": []
-    },
-    {
-      "id": "ed42",
-      "name": "sama2een",
-      "students": []
-    },
-    {
-      "id": "e8fc",
-      "name": "mch-1",
-      "students": {}
+      "id": "1212"
     }
   ]
 }

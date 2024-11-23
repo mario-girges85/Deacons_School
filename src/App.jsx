@@ -12,13 +12,18 @@ const App = () => {
   const [cn, setcn] = useState(localStorage.cn);
   //all users data
   const getusersdata = () => {
-    axios.get(`${apiurl}users/`).then((data) => {
-      setusers(data.data);
-    });
+    axios
+      .get(`${apiurl}users/`)
+      .then((data) => {
+        setusers(data.data);
+      })
+      .then(() => {
+        // console.log(userdata);
+      });
   };
   useEffect(() => {
     getusersdata();
-  }, []);
+  }, [userdata]);
 
   //logged user data
   const getuserdata = () => {
@@ -37,10 +42,10 @@ const App = () => {
     if (cn) {
       getuserdata();
     }
-  }, [cn, userid]);
+  }, [cn]);
   return (
     <div className="w-11/12 m-auto">
-      <Nav cn={cn} />
+      <Nav cn={cn} userdata={userdata} />
       <Routes>
         <Route
           path="/*"
@@ -54,7 +59,9 @@ const App = () => {
             />
           }
         ></Route>
-        <Route path="/admin/*" element={<Adminlayout />}></Route>
+        {userdata?.role == "admin" && (
+          <Route path="/admin/*" element={<Adminlayout />}></Route>
+        )}
       </Routes>
     </div>
   );
