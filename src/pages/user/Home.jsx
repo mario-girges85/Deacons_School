@@ -1,4 +1,5 @@
 import { Spinner } from "@material-tailwind/react";
+import sd from "../../assets/images/saintdaemiana2.jpg.crdownload.jpg";
 const Home = ({ userdata }) => {
   if (!userdata) {
     return (
@@ -10,11 +11,13 @@ const Home = ({ userdata }) => {
   }
 
   return (
-    <div className="flex flex-row  justify-center items-center">
-      <h1 className="text-center text-3xl">
-        {`Welcome ${userdata.firstname} ${userdata.lastname}  `}
-      </h1>
-      {/* Add more details as needed */}
+    <div>
+      <div className="flex flex-row  justify-center items-center">
+        <h1 className="text-center text-3xl">
+          {`Welcome ${userdata.firstname} ${userdata.lastname}  `}
+        </h1>
+        {/* Add more details as needed */}
+      </div>
     </div>
   );
 };
