@@ -16,7 +16,7 @@ const App = () => {
     axios
       .post(`${import.meta.env.VITE_API_Userdata}`, { id: localStorage.id })
       .then((data) => {
-        setuserdata(data.data);
+        setuserdata(data.data.user);
       })
       .then(() => {
         console.log(userdata);

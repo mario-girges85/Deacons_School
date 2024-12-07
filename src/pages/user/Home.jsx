@@ -16,7 +16,7 @@ const Home = ({ userdata }) => {
     <div>
       <div className="flex flex-row  justify-center items-center">
         <h1 className="text-center text-3xl">
-          {`Welcome ${userdata?.user.firstname} ${userdata?.user.lastname}  `}
+          {`Welcome ${userdata?.firstname} ${userdata?.lastname}  `}
         </h1>
         {/* Add more details as needed */}
       </div>
