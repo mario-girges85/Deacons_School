@@ -8,7 +8,6 @@ import {
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-const loginUrl = import.meta.env.VITE_API_LOGIN;
 
 const Login = ({ setuserid, setcn }) => {
   const [btnloading, setbtnloading] = useState(false);
@@ -21,28 +20,22 @@ const Login = ({ setuserid, setcn }) => {
   const checklogin = () => {
     setbtnloading(true);
     axios
-      .post(`${loginUrl}`, loguser)
+      .post(`${import.meta.env.VITE_API_LOGIN}`, loguser)
       .then((response) => {
         if (response.data.id) {
           localStorage.setItem("id", response.data.id);
+          setinvaliddata("hidden");
+          setuserid(response.data.id);
+          localStorage.cn = true;
+          setcn(true);
+          navigate("/");
         } else {
           console.log("invalid email or password");
         }
       })
       .then(() => {
-        setbtnloading(flase);
+        setbtnloading(false);
       });
-
-    // if (false) {
-    //   setinvaliddata("hidden");
-    //   setuserid(foundUser.id);
-    //   localStorage.id = foundUser.id;
-    //   localStorage.cn = true;
-    //   setcn(true);
-    //   navigate("/");
-    // } else {
-    //   setinvaliddata("");
-    // }
   };
 
   //stop reloading on onsubmin event

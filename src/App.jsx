@@ -5,34 +5,22 @@ import Adminlayout from "./Adminlayout";
 import Nav from "./components/Nav";
 import axios from "axios";
 const App = () => {
-  const apiurl = import.meta.env.VITE_API_URL;
+  // const apiurl = import.meta.env.VITE_API_URL;
   const [users, setusers] = useState([]);
   const [userdata, setuserdata] = useState(null);
   const [userid, setuserid] = useState(localStorage.id);
   const [cn, setcn] = useState(localStorage.cn);
-  //all users data
-  const getusersdata = () => {
-    axios
-      .get(`${apiurl}users/`)
-      .then((data) => {
-        setusers(data.data);
-      })
-      .then(() => {
-        // console.log(userdata);
-      });
-  };
-  useEffect(() => {
-    getusersdata();
-  }, [userdata]);
 
   //logged user data
   const getuserdata = () => {
     axios
-      .get(`${apiurl}users/${userid}`)
+      .post(`${import.meta.env.VITE_API_Userdata}`, { id: localStorage.id })
       .then((data) => {
         setuserdata(data.data);
       })
-      .then(() => {})
+      .then(() => {
+        console.log(userdata);
+      })
       .catch(() => {
         console.error("error catching logged user data");
       });
@@ -55,7 +43,6 @@ const App = () => {
               userid={userid}
               setcn={setcn}
               setuserid={setuserid}
-              users={users}
             />
           }
         ></Route>

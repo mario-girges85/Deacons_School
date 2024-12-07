@@ -5,7 +5,7 @@ import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
 import Notfound from "./pages/Notfound";
 import Exams from "./pages/user/Exams";
-const Userlayout = ({ users, userid, setuserid, setcn, userdata }) => {
+const Userlayout = ({ userid, setuserid, setcn, userdata }) => {
   return (
     <div>
       <Routes>
@@ -18,11 +18,10 @@ const Userlayout = ({ users, userid, setuserid, setcn, userdata }) => {
               setcn={setcn}
               setuserid={setuserid}
               userid={userid}
-              users={users}
             />
           }
         ></Route>
-        <Route path="/signup" element={<Signup users={users} />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
         <Route path="/exams" element={<Exams />}></Route>
         <Route path="*" element={<Notfound />}></Route>
       </Routes>
