@@ -5,29 +5,22 @@ import Adminlayout from "./Adminlayout";
 import Nav from "./components/Nav";
 import axios from "axios";
 const App = () => {
-  const apiurl = import.meta.env.VITE_API_URL;
+  // const apiurl = import.meta.env.VITE_API_URL;
   const [users, setusers] = useState([]);
   const [userdata, setuserdata] = useState(null);
   const [userid, setuserid] = useState(localStorage.id);
   const [cn, setcn] = useState(localStorage.cn);
-  //all users data
-  const getusersdata = () => {
-    axios.get(`${apiurl}users/`).then((data) => {
-      setusers(data.data);
-    });
-  };
-  useEffect(() => {
-    getusersdata();
-  }, []);
 
   //logged user data
   const getuserdata = () => {
     axios
-      .get(`${apiurl}users/${userid}`)
+      .post(`${import.meta.env.VITE_API_Userdata}`, { id: localStorage.id })
       .then((data) => {
-        setuserdata(data.data);
+        setuserdata(data.data.user);
       })
-      .then(() => {})
+      .then(() => {
+        console.log(userdata);
+      })
       .catch(() => {
         console.error("error catching logged user data");
       });
@@ -37,10 +30,10 @@ const App = () => {
     if (cn) {
       getuserdata();
     }
-  }, [cn, userid]);
+  }, [cn]);
   return (
     <div className="w-11/12 m-auto">
-      <Nav cn={cn} />
+      <Nav cn={cn} userdata={userdata} />
       <Routes>
         <Route
           path="/*"
@@ -50,11 +43,12 @@ const App = () => {
               userid={userid}
               setcn={setcn}
               setuserid={setuserid}
-              users={users}
             />
           }
         ></Route>
-        <Route path="/admin/*" element={<Adminlayout />}></Route>
+        {userdata?.role == "admin" && (
+          <Route path="/admin/*" element={<Adminlayout />}></Route>
+        )}
       </Routes>
     </div>
   );

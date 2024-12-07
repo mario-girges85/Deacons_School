@@ -7,8 +7,10 @@ import {
 } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Login = ({ users, userid, userdata, setuserid, setcn }) => {
+const Login = ({ setuserid, setcn }) => {
+  const [btnloading, setbtnloading] = useState(false);
   const [showpass, setshowpass] = useState(false);
   const [loguser, setloguser] = useState({ email: "", pass: "" });
   const [invaliddata, setinvaliddata] = useState("hidden");
@@ -16,21 +18,24 @@ const Login = ({ users, userid, userdata, setuserid, setcn }) => {
   //check in api data / if true store id in local storage / and navigate home
 
   const checklogin = () => {
-    const foundUser = users.find(
-      (oneuser) =>
-        oneuser.email === loguser.email && oneuser.password === loguser.pass
-    );
-
-    if (foundUser) {
-      setinvaliddata("hidden");
-      setuserid(foundUser.id);
-      localStorage.id = foundUser.id;
-      localStorage.cn = true;
-      setcn(true);
-      navigate("/");
-    } else {
-      setinvaliddata("");
-    }
+    setbtnloading(true);
+    axios
+      .post(`${import.meta.env.VITE_API_LOGIN}`, loguser)
+      .then((response) => {
+        if (response.data.id) {
+          localStorage.setItem("id", response.data.id);
+          setinvaliddata("hidden");
+          setuserid(response.data.id);
+          localStorage.cn = true;
+          setcn(true);
+          navigate("/");
+        } else {
+          console.log("invalid email or password");
+        }
+      })
+      .then(() => {
+        setbtnloading(false);
+      });
   };
 
   //stop reloading on onsubmin event
@@ -62,7 +67,7 @@ const Login = ({ users, userid, userdata, setuserid, setcn }) => {
             </Typography>
             <div className="w-72">
               <Input
-                type="email"
+                type="text"
                 value={loguser.email}
                 onChange={(e) => {
                   setloguser({ ...loguser, email: e.target.value });
@@ -98,7 +103,11 @@ const Login = ({ users, userid, userdata, setuserid, setcn }) => {
           <Typography className={` ${invaliddata}  text-red-800 mb-[-15px]`}>
             *invalid username or password
           </Typography>
-          <Button type="submit" className=" w-full bg-cdarkred-100 mt-6">
+          <Button
+            loading={btnloading}
+            type="submit"
+            className=" w-full bg-cdarkred-100 mt-6"
+          >
             Sign in
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">

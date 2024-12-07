@@ -10,7 +10,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
 
-function NavList({ cn }) {
+function NavList({ userdata, cn }) {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -18,37 +18,44 @@ function NavList({ cn }) {
         to={"./"}
         variant="small"
         color="blue-gray"
-        className="p-1 font-medium flex items-center hover:text-cdarkred-100 transition-colors"
+        className="p-1 font-bold flex items-center hover:text-cdarkred-100 transition-colors"
       >
         Home
       </Typography>
-      <Typography
-        as={Link}
-        to={"/admin/dashboard"}
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium flex items-center hover:text-cdarkred-100 transition-colors"
-      >
-        Dashboard
-      </Typography>
-      <Typography
-        as={Link}
-        to={"/admin/students"}
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium flex items-center hover:text-cdarkred-100 transition-colors"
-      >
-        Students
-      </Typography>
+
+      {userdata?.role == "admin" ? (
+        <Typography
+          as={Link}
+          to={"/admin/dashboard"}
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-bold  flex items-center hover:text-cdarkred-100 transition-colors"
+        >
+          Dashboard
+        </Typography>
+      ) : (
+        <Typography
+          as={Link}
+          to={"/exams"}
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-bold flex items-center hover:text-cdarkred-100 transition-colors"
+        >
+          Exams
+        </Typography>
+      )}
       {cn ? (
-        <Avatar />
+        <div className="flex justify-center items-center gap-3">
+          <Avatar />
+          <h1>{userdata?.firstname}</h1>
+        </div>
       ) : (
         <Typography
           as={Link}
           to={"/login"}
           variant="small"
           color="blue-gray"
-          className="p-1 font-medium flex items-center hover:text-cdarkred-100 transition-colors"
+          className="p-1 font-bold flex items-center hover:text-cdarkred-100 transition-colors"
         >
           Login
         </Typography>
@@ -57,7 +64,7 @@ function NavList({ cn }) {
   );
 }
 
-function NavbarSimple({ cn }) {
+function NavbarSimple({ cn, userdata }) {
   const [openNav, setOpenNav] = useState(false);
 
   const handleWindowResize = () =>
@@ -72,7 +79,7 @@ function NavbarSimple({ cn }) {
   });
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
+    <Navbar className="mx-auto max-w-screen-2xl px-6 py-3">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as={Link}
@@ -83,7 +90,7 @@ function NavbarSimple({ cn }) {
           <img src={logo} alt="logo" />
         </Typography>
         <div className="hidden lg:block">
-          <NavList cn={cn} />
+          <NavList cn={cn} userdata={userdata} />
         </div>
         <IconButton
           variant="text"
@@ -99,7 +106,7 @@ function NavbarSimple({ cn }) {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        <NavList cn={cn} />
+        <NavList cn={cn} userdata={userdata} />
       </Collapse>
     </Navbar>
   );
