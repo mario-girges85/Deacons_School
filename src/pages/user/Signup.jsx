@@ -3,7 +3,6 @@ import { Input, Radio, Button, Checkbox } from "@material-tailwind/react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-const apiurl = import.meta.env.VITE_API_URL;
 const Signup2 = () => {
   const navigate = useNavigate();
   const [newuser, setnewuser] = useState({
@@ -14,8 +13,7 @@ const Signup2 = () => {
     password: "",
     gender: "",
     birthday: "",
-    role: "",
-    cart: [],
+    role: "user",
   });
   const [confirmpassword, setconfirmpassword] = useState("");
   const [error, seterror] = useState("");
@@ -23,14 +21,28 @@ const Signup2 = () => {
 
   //post to api function
   const postuser = () => {
-    axios
-      .post(`${apiurl}users`, newuser)
-      .then(() => {
-        location.reload();
-      })
-      .then(() => {
-        console.log("data posted");
-      });
+    axios.post(`${import.meta.env.VITE_API_adduser}`, newuser).then((res) => {
+      console.log(res);
+      if (res.data.exist) {
+        //email already exist
+        Swal.fire({
+          title: "Email Already exist",
+          text: "please go to login page ",
+          icon: "error",
+        }).then(() => {
+          navigate("/login");
+        });
+      } else {
+        //email added successfully
+        Swal.fire({
+          title: "email added successfully",
+          text: "Go to log in page",
+          icon: "success",
+        }).then(() => {
+          navigate("/login");
+        });
+      }
+    });
   };
   //reset error
   let reset = () => {
@@ -80,7 +92,6 @@ const Signup2 = () => {
       } else {
         reset();
         postuser();
-        navigate("/login");
       }
     }
   }
