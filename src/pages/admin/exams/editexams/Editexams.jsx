@@ -25,23 +25,6 @@ const Editexams = () => {
       </div>
       <div className="flex flex-wrap justify-center items-center gap-5 ">
         <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
-        <Examcard />
       </div>
     </div>
   );

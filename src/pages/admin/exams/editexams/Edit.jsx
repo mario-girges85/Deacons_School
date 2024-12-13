@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Input, Select, Option, Radio } from "@material-tailwind/react";
-
+import axios from "axios";
 const QuizManager = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState({
@@ -10,8 +10,17 @@ const QuizManager = () => {
     correctAnswer: null,
   });
   const [newChoice, setNewChoice] = useState("");
-  const [isEditing, setIsEditing] = useState(false); // Track if editing
-  const [editIndex, setEditIndex] = useState(null); // Index of question being edited
+  const [isEditing, setIsEditing] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+
+  // Exam metadata
+  const [examLevel, setExamLevel] = useState("");
+  const [examYear, setExamYear] = useState("");
+  const [examSemester, setExamSemester] = useState("");
+  const examId =
+    examLevel && examYear && examSemester
+      ? `${examLevel}-${examYear}-${examSemester}`
+      : "";
 
   // Handle input changes
   const handleChange = (e) => {
@@ -40,18 +49,15 @@ const QuizManager = () => {
     if (currentQuestion.text.trim() === "") return;
 
     if (isEditing) {
-      // Update existing question
       const updatedQuestions = [...questions];
       updatedQuestions[editIndex] = currentQuestion;
       setQuestions(updatedQuestions);
       setIsEditing(false);
       setEditIndex(null);
     } else {
-      // Add new question
       setQuestions([...questions, currentQuestion]);
     }
 
-    // Reset the form
     setCurrentQuestion({
       text: "",
       type: "written",
@@ -69,6 +75,19 @@ const QuizManager = () => {
 
   // Submit the quiz
   const handleSubmitQuiz = () => {
+    if (!examId) {
+      alert("Please select an Exam Level, Year, and Semester.");
+      return;
+    }
+    if (questions.length == 0) {
+      alert("Please add question");
+      return;
+    }
+    axios.post(`${import.meta.env.VITE_API_addexam}`, {
+      _id: examId,
+      questions: questions,
+    });
+    console.log("Exam ID:", examId);
     console.log("Submitted Questions:", questions);
     alert("Quiz submitted successfully!");
     setQuestions([]);
@@ -81,6 +100,49 @@ const QuizManager = () => {
           Quiz Manager
         </h2>
 
+        {/* Exam Metadata */}
+        <div className="space-y-4 mb-6">
+          <h3 className="text-lg font-semibold">Exam Metadata</h3>
+          <Select
+            label="Select Exam Level (0-5)"
+            value={examLevel}
+            onChange={(value) => setExamLevel(value)}
+          >
+            {[0, 1, 2, 3, 4, 5].map((level) => (
+              <Option key={level} value={level.toString()}>
+                Level {level}
+              </Option>
+            ))}
+          </Select>
+
+          <Select
+            label="Select Exam Year (1-4)"
+            value={examYear}
+            onChange={(value) => setExamYear(value)}
+          >
+            {[1, 2, 3, 4].map((year) => (
+              <Option key={year} value={year.toString()}>
+                Year {year}
+              </Option>
+            ))}
+          </Select>
+
+          <Select
+            label="Select Semester (1 or 2)"
+            value={examSemester}
+            onChange={(value) => setExamSemester(value)}
+          >
+            <Option value="1">Semester 1</Option>
+            <Option value="2">Semester 2</Option>
+          </Select>
+
+          {examId && (
+            <div className="p-4 bg-gray-50 border rounded text-center">
+              <strong>Exam ID:</strong> {examId}
+            </div>
+          )}
+        </div>
+
         {/* Question Form */}
         <div className="space-y-4">
           <Input
@@ -90,7 +152,6 @@ const QuizManager = () => {
             onChange={handleChange}
           />
 
-          {/* Question Type */}
           <Select
             label="Select Question Type"
             value={currentQuestion.type}
@@ -106,10 +167,8 @@ const QuizManager = () => {
             <Option value="written">Written</Option>
             <Option value="mcq">Multiple Choice</Option>
             <Option value="truefalse">True / False</Option>
-            <Option value="multiple">Multiple Answers</Option>
           </Select>
 
-          {/* Choices for MCQ and Multiple Answers */}
           {(currentQuestion.type === "mcq" ||
             currentQuestion.type === "multiple") && (
             <div>
@@ -141,7 +200,6 @@ const QuizManager = () => {
             </div>
           )}
 
-          {/* True/False Question */}
           {currentQuestion.type === "truefalse" && (
             <div className="space-y-2">
               <Radio
@@ -165,7 +223,6 @@ const QuizManager = () => {
             </div>
           )}
 
-          {/* Add or Update Question */}
           <div className="flex space-x-4">
             <Button
               color={isEditing ? "yellow" : "green"}
@@ -179,7 +236,6 @@ const QuizManager = () => {
           </div>
         </div>
 
-        {/* Questions Preview */}
         {questions.length > 0 && (
           <div className="mt-6">
             <h3 className="text-lg font-bold mb-2">Added Questions</h3>
